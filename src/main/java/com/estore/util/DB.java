@@ -1,29 +1,31 @@
 package com.estore.util;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DB {
-    private static final HikariDataSource dataSource;
 
-    static {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/estore?useSSL=false&serverTimezone=UTC&characterEncoding=utf8");
-        config.setUsername("root");
-        config.setPassword("root1234");
-        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        config.setMaximumPoolSize(10);
-        config.setMinimumIdle(2);
-        config.setPoolName("EstorePool");
+	private static String URL;
 
-        dataSource = new HikariDataSource(config);
-    }
+	static {
+		try {
+			Properties props = new Properties();
+			InputStream in = DB.class.getClassLoader().getResourceAsStream("database.properties");
+			props.load(in);
 
+			URL = props.getProperty("db.url");
 
-    public static Connection getConnection() throws SQLException {
-        return dataSource.getConnection();
-    }
+			Class.forName("org.sqlite.JDBC");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Connection getConnection() throws SQLException {
+		return DriverManager.getConnection(URL);
+	}
 }
