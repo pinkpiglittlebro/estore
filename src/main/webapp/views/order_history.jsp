@@ -12,6 +12,15 @@
 <!-- Include Navbar -->
 <jsp:include page="/views/components/navbar.jsp" />
 
+<div style="width:60%; margin:auto; margin-top:20px; background:#fffaf7; padding:20px; border:1px solid #e3c5b1; border-radius:8px;">
+	<h3 style="color:#b85c38;">Your Profile</h3>
+
+	<p><b>Username:</b> ${sessionScope.user.username}</p>
+	<p><b>Email:</b> ${sessionScope.user.email}</p>
+</div>
+
+
+
 <h2 style="text-align:center; margin-top:20px; color:#b85c38;">
 	Your Order History
 </h2>

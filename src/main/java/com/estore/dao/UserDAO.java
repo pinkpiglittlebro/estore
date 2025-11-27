@@ -42,6 +42,9 @@ public class UserDAO {
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
 				u.setEmail(rs.getString("email"));
+
+
+
 				return u;
 			}
 
@@ -50,4 +53,9 @@ public class UserDAO {
 		}
 		return null;
 	}
+
+
+
+
+
 }

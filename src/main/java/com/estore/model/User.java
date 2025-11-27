@@ -6,6 +6,11 @@ public class User {
 	private String password;
 	private String email;
 
+	private String address;
+	private String city;
+	private String province;
+	private String postal;
+
 	// getters & setters
 	public int getId() {
 		return id;
@@ -38,5 +43,17 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public String getAddress() { return address; }
+	public void setAddress(String address) { this.address = address; }
+
+	public String getCity() { return city; }
+	public void setCity(String city) { this.city = city; }
+
+	public String getProvince() { return province; }
+	public void setProvince(String province) { this.province = province; }
+
+	public String getPostal() { return postal; }
+	public void setPostal(String postal) { this.postal = postal; }
 
 }
