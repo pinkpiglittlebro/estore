@@ -17,6 +17,7 @@ public class DB {
 			props.load(in);
 
 			URL = props.getProperty("db.url");
+			System.out.println(">>> USING DB FILE: " + URL);
 
 			Class.forName("org.sqlite.JDBC");
 

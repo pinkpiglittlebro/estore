@@ -22,7 +22,6 @@ public class OrderHistoryServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("user");
 
-		// Must be logged in to view order history
 		if (user == null) {
 			resp.sendRedirect("login");
 			return;
@@ -36,6 +35,9 @@ public class OrderHistoryServlet extends HttpServlet {
 			req.setAttribute("error", "Unable to load order history.");
 		}
 
-		req.getRequestDispatcher("/views/order_history.jsp").forward(req, resp);
+		req.getRequestDispatcher("/views/order_history.jsp")
+			.forward(req, resp);
 	}
+
+
 }
