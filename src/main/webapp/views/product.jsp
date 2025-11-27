@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.estore.model.User" %>
+
+<jsp:include page="components/navbar.jsp" />
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +22,7 @@
     </style>
 </head>
 <body>
+
 <div class="product-container">
     <img src="${pageContext.request.contextPath}/images/${product.imageUrl}" alt="${product.name}">
     <h2>${product.name}</h2>

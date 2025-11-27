@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.estore.model.User" %>
+<jsp:include page="components/navbar.jsp" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +57,7 @@
     </style>
 </head>
 <body>
+
 <h2>Your Cart</h2>
 
 <c:if test="${empty sessionScope.cart.items}">
@@ -103,7 +107,15 @@
         <button type="submit">🧹 Clear Cart</button>
     </form>
 
-    <br>
+	<br><br>
+	<form action="checkout" method="get">
+		<button type="submit" style="background:#3a8f3a; color:white; padding:10px 20px; border-radius:6px;">
+			Check Out
+		</button>
+	</form>
+
+
+	<br>
     <!-- continue shopping link that remembers filters/sort -->
     <c:url var="backUrl" value="home">
         <c:if test="${not empty sessionScope.lastCategory}">
