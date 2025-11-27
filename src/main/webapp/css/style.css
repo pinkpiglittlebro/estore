@@ -2,115 +2,242 @@
    Global Styles
    =============================== */
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #fffaf7;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+	font-family: 'Segoe UI', Arial, sans-serif;
+	background: #fffaf7;
+	margin: 0;
+	padding: 0;
+	padding-top: 80px;
 }
 
 h2 {
-    color: #b85c38;
-    margin: 20px 0;
+	color: #b85c38;
+	margin: 20px 0;
 }
 
 /* ===============================
    Dropdown / Filter
    =============================== */
 form {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 label {
-    font-size: 15px;
-    color: #4e2a0c;
-    margin-right: 5px;
+	font-size: 15px;
+	color: #4e2a0c;
+	margin-right: 5px;
 }
 
 select {
-    padding: 6px 10px;
-    border-radius: 6px;
-    border: 1px solid #d6a57a;
-    margin-bottom: 10px;
-    font-size: 15px;
+	padding: 6px 10px;
+	border-radius: 6px;
+	border: 1px solid #d6a57a;
+	margin-bottom: 10px;
+	font-size: 15px;
 }
 
 /* ===============================
    Product Grid
    =============================== */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    width: 90%;
-    margin: auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 20px;
+	padding: 20px;
+	width: 90%;
+	margin: auto;
 }
 
 .card {
-    border: 1px solid #e3c5b1;
-    border-radius: 10px;
-    background: white;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-    padding: 15px;
+	border: 1px solid #e3c5b1;
+	border-radius: 10px;
+	background: white;
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s;
+	padding: 15px;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+	transform: translateY(-5px);
 }
 
 .card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 8px;
 }
 
 .name {
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-top: 10px;
-    color: #4e2a0c;
+	font-weight: bold;
+	font-size: 1.1em;
+	margin-top: 10px;
+	color: #4e2a0c;
 }
 
 .price {
-    color: #b85c38;
-    font-weight: bold;
-    margin: 8px 0;
+	color: #b85c38;
+	font-weight: bold;
+	margin: 8px 0;
 }
 
 .category {
-    font-size: 0.9em;
-    color: #999;
+	font-size: 0.9em;
+	color: #999;
 }
 
 /* ===============================
    Buttons
    =============================== */
 button {
-    margin-top: 8px;
-    background-color: #b85c38;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+	margin-top: 8px;
+	background-color: #b85c38;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	padding: 6px 12px;
+	cursor: pointer;
+	transition: background-color 0.2s;
 }
 
 button:hover {
-    background-color: #a24e2f;
+	background-color: #a24e2f;
 }
 
 /* ===============================
    Links
    =============================== */
 a {
-    color: #b85c38;
-    text-decoration: none;
+	color: #b85c38;
+	text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
+
+/* ===============================
+   Login & Register Pages
+   =============================== */
+.auth-body {
+	background-color: #fff7f2 !important; /* override only for login/register */
+}
+
+.login-container,
+.register-container {
+	max-width: 400px;
+	margin: 80px auto;
+	padding: 30px;
+	border-radius: 15px;
+	background: #ffffff;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	text-align: center;
+}
+
+.login-container h2,
+.register-container h2 {
+	color: #c96b44;
+	margin-bottom: 20px;
+	font-size: 28px;
+}
+
+.login-container input,
+.register-container input {
+	width: 90%;
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 16px;
+}
+
+.login-btn,
+.register-btn {
+	background-color: #ce6f47;
+	border: none;
+	padding: 12px 20px;
+	color: #fff;
+	border-radius: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	margin-top: 15px;
+	width: 100%;
+}
+
+.login-btn:hover,
+.register-btn:hover {
+	background-color: #b75f3d;
+}
+
+.register-link,
+.login-link {
+	margin-top: 15px;
+	display: block;
+	color: #c96b44;
+	font-size: 14px;
+}
+
+/* NAVBAR LAYOUT */
+.navbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	display: flex;
+	justify-content: space-between; /* left and right sides */
+	align-items: center;
+	padding: 15px 40px;
+	background-color: #fffaf7;
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 18px;
+	text-align: left !important;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+}
+
+h2 {
+	color: #b85c38;
+	margin: 20px 0;
+	text-align: center;
+}
+
+/* left: logo */
+.nav-left .logo {
+	font-size: 28px;
+	font-weight: bold;
+	color: #b85c38;
+	text-decoration: none;
+}
+
+/* right side: buttons */
+.nav-right {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.nav-right .nav-btn {
+	padding: 8px 14px;
+	border-radius: 6px;
+	background: white;
+	border: 2px solid #b85c38;
+	color: #b85c38;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+}
+
+.nav-right .nav-btn:hover {
+	background: #b85c38;
+	color: white;
+}
+
+.nav-right .sign-up {
+	background: #b85c38;
+	color: white;
+}
+
+
+
+
