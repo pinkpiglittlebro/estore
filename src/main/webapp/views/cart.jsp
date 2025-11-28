@@ -60,6 +60,14 @@
 
 <h2>Your Cart</h2>
 
+<c:if test="${not empty sessionScope.error}">
+	<p style="color:red; font-weight:bold; text-align:center;">
+			${sessionScope.error}
+	</p>
+	<c:remove var="error" scope="session"/>
+</c:if>
+
+
 <c:if test="${empty sessionScope.cart.items}">
     <p>Your cart is empty.</p>
     <a href="home">← Continue Shopping</a>
