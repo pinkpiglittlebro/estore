@@ -1,19 +1,19 @@
 package com.estore.model;
 
 public class OrderItem {
-	private long productId;
+	private int productId;
 	private int quantity;
 	private double price;
 
 	private String productName;
 
-	public OrderItem(long productId, int quantity, double price) {
+	public OrderItem(int productId, int quantity, double price) {
 		this.productId = productId;
 		this.quantity = quantity;
 		this.price = price;
 	}
 
-	public long getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 
@@ -25,7 +25,7 @@ public class OrderItem {
 		return price;
 	}
 
-	public void setProductId(long productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 

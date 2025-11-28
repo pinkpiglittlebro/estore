@@ -1,6 +1,7 @@
 package com.estore.controller;
 
 import com.estore.dao.OrderDAO;
+import com.estore.dao.ProductDAO;
 import com.estore.model.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -19,12 +20,27 @@ public class CheckoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
 
+		User user = (User) req.getSession().getAttribute("user");
+		if (user == null) {
+			req.getSession().setAttribute("authError",
+				"Please sign in or sign up to check out.");
+			resp.sendRedirect(req.getContextPath() + "/views/login.jsp");
+			return;
+		}
 		req.getRequestDispatcher("/views/checkout.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 		throws ServletException, IOException {
+
+		User user = (User) req.getSession().getAttribute("user");
+		if (user == null) {
+			req.getSession().setAttribute("authError",
+				"Please sign in or sign up to check out.");
+			resp.sendRedirect(req.getContextPath() + "/views/login.jsp");
+			return;
+		}
 
 		HttpSession session = req.getSession();
 		Cart cart = (Cart) session.getAttribute("cart");
@@ -50,7 +66,24 @@ public class CheckoutServlet extends HttpServlet {
 			return;
 		}
 
-		User user = (User) session.getAttribute("user");
+		ProductDAO productDAO = new ProductDAO();
+
+		for (CartItem item : cart.getItems()) {
+			int productId = (int) item.getProduct().getId();
+			int requestedQty = item.getQuantity();
+			int inventory = productDAO.getInventory(productId);
+
+			if (inventory < requestedQty) {
+				req.setAttribute("error",
+					"Not enough inventory for " + item.getProduct().getName() +
+						". Only " + inventory + " left.");
+
+				req.getRequestDispatcher("/views/checkout.jsp").forward(req, resp);
+				return;
+			}
+		}
+
+
 
 		Order order = new Order();
 		order.setUserId(user != null ? user.getId() : null);
@@ -66,7 +99,7 @@ public class CheckoutServlet extends HttpServlet {
 		order.setItems(
 			cart.getItems().stream()
 				.map(i -> new OrderItem(
-					i.getProduct().getId(),
+					(int) i.getProduct().getId(),
 					i.getQuantity(),
 					i.getProduct().getPrice().doubleValue()
 				))
@@ -75,6 +108,10 @@ public class CheckoutServlet extends HttpServlet {
 
 		try {
 			long orderId = orderDAO.saveOrder(order);
+
+			for (OrderItem oi : order.getItems()) {
+				productDAO.reduceInventory(oi.getProductId(), oi.getQuantity());
+			}
 
 			// clear cart
 			cart.clear();

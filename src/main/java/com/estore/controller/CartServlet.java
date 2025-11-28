@@ -73,6 +73,17 @@ public class CartServlet extends HttpServlet {
         } else if ("update".equals(action)) {
             long id = Long.parseLong(req.getParameter("id"));
             int qty = Integer.parseInt(req.getParameter("quantity"));
+
+			int inventory = productDAO.getInventory((int) id);
+
+			if (qty > inventory) {
+				req.getSession().setAttribute("error",
+					"Cannot update quantity. Only " + inventory + " left in stock.");
+
+				// Stay on cart page but DO NOT update cart
+				resp.sendRedirect("cart");
+				return;
+			}
             cart.updateQuantity(id, qty);
         }
 

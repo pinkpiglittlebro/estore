@@ -79,14 +79,26 @@
 			<div class="category">${p.category}</div>
 			<div class="price">$${p.price}</div>
 
-			<!-- Add to cart form -->
-			<form action="cart" method="post">
-				<input type="hidden" name="action" value="add">
-				<input type="hidden" name="id" value="${p.id}">
-				<input type="hidden" name="category" value="${selectedCategory}">
-				<input type="hidden" name="sort" value="${selectedSort}">
-				<button type="submit">🛒 Add to Cart</button>
-			</form>
+
+			<!-- Add to cart OR show out of stock -->
+			<c:choose>
+				<c:when test="${p.inventory <= 0}">
+					<button disabled style="background:gray; cursor:not-allowed; width:100%; margin-top:10px;">
+						❌ Out of Stock
+					</button>
+				</c:when>
+
+				<c:otherwise>
+					<form action="cart" method="post">
+						<input type="hidden" name="action" value="add">
+						<input type="hidden" name="id" value="${p.id}">
+						<input type="hidden" name="category" value="${selectedCategory}">
+						<input type="hidden" name="sort" value="${selectedSort}">
+						<button type="submit">🛒 Add to Cart</button>
+					</form>
+				</c:otherwise>
+			</c:choose>
+
 
 		</div>
 	</c:forEach>

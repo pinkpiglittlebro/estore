@@ -11,6 +11,7 @@ public class User {
 	private String province;
 	private String postal;
 
+	private String phone;
 	private String fullName;
     private String creditCard;
 	// getters & setters
@@ -57,5 +58,18 @@ public class User {
 
 	public String getPostal() { return postal; }
 	public void setPostal(String postal) { this.postal = postal; }
+	public String getFullName() { return fullName; }
+	public void setFullName(String fullName) { this.fullName = fullName; }
+	public String getCreditCard() { return creditCard; }
+	public void setCreditCard(String creditCard) { this.creditCard = creditCard; }
+
+	public String getPhone() { return phone; }
+	public void setPhone(String phone) { this.phone = phone; }
+	public String getMaskedCreditCard() {
+		if (creditCard == null || creditCard.length() < 4) {
+			return "****";
+		}
+		return "**** **** **** " + creditCard.substring(creditCard.length() - 4);
+	}
 
 }

@@ -6,13 +6,13 @@
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css">
 
 	<style>
-		/* ADDED: CSS to stack inputs vertically */
+
 		.checkout-form {
 			display: flex;
-			flex-direction: column; /* Forces elements to stack vertically */
-			gap: 15px;              /* Adds space between the input boxes */
-			max-width: 400px;       /* Optional: limits width for better look */
-			margin: 0 auto;         /* Optional: centers the form */
+			flex-direction: column;
+			gap: 15px;
+			max-width: 400px;
+			margin: 0 auto;
 		}
 
 		.checkout-form input {
@@ -41,16 +41,28 @@
 
 			<h3>Shipping Information</h3>
 
-			<input name="fullName" placeholder="Full Name" required>
-			<input name="address" placeholder="Address" required>
-			<input name="city" placeholder="City" required>
-			<input name="postal" placeholder="Postal Code" required>
-			<input name="phone" placeholder="Phone Number" required>
+			<input name="fullName"  placeholder="Full Name"
+				   value="${sessionScope.user.fullName}" required>
+
+			<input name="address"   placeholder="Address"
+				   value="${sessionScope.user.address}" required>
+
+			<input name="city"      placeholder="City"
+				   value="${sessionScope.user.city}" required>
+
+			<input name="postal"    placeholder="Postal Code"
+				   value="${sessionScope.user.postal}" required>
+
+			<input name="phone"     placeholder="Phone Number"
+				   value="${sessionScope.user.phone}" required>
 
 			<h3>Payment Information</h3>
 
-			<input name="cardNumber" placeholder="Card Number" required>
+			<input name="cardNumber" placeholder="Card Number"
+				   value="${sessionScope.user.creditCard}" required>
+
 			<input name="expiry" placeholder="MM/YY" required>
+
 			<input name="cvv" placeholder="CVV" required>
 
 			<button type="submit" class="register-btn">Place Order</button>

@@ -101,7 +101,7 @@ public class OrderDAO {
 
 			while (rs.next()) {
 				OrderItem oi = new OrderItem(
-					rs.getLong("product_id"),
+					rs.getInt("product_id"),
 					rs.getInt("quantity"),
 					rs.getDouble("price")
 				);

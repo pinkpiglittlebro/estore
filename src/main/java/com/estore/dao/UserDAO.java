@@ -43,7 +43,14 @@ public class UserDAO {
 				u.setPassword(rs.getString("password"));
 				u.setEmail(rs.getString("email"));
 
-
+				//Load all profile fields
+				u.setFullName(rs.getString("full_name"));
+				u.setAddress(rs.getString("address"));
+				u.setCity(rs.getString("city"));
+				u.setProvince(rs.getString("province"));
+				u.setPostal(rs.getString("postal"));
+				u.setPhone(rs.getString("phone"));
+				u.setCreditCard(rs.getString("credit_card"));
 
 				return u;
 			}
@@ -54,6 +61,30 @@ public class UserDAO {
 		return null;
 	}
 
+	public boolean updateUser(User user) {
+		String sql = "UPDATE users SET full_name=?, email=?, address=?, city=?, province=?, postal=?, phone=?, credit_card=? WHERE id=?";
+
+		try (Connection conn = DB.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setString(1, user.getFullName());
+			ps.setString(2, user.getEmail());
+			ps.setString(3, user.getAddress());
+			ps.setString(4, user.getCity());
+			ps.setString(5, user.getProvince());
+			ps.setString(6, user.getPostal());
+			ps.setString(7, user.getPhone());
+			ps.setString(8, user.getCreditCard());
+			ps.setInt(9, user.getId());
+
+			ps.executeUpdate();
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 
 
