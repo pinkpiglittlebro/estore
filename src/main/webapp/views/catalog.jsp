@@ -31,7 +31,7 @@
 
 <jsp:include page="components/navbar.jsp" />
 
-<h2 style="text-align: center;">🍰 来福甜品店 🍰</h2>
+<h2 style="text-align: center;">🍰 Dave's Pastry 🍰</h2>
 
 <!-- Cart button on upper-right -->
 <form action="cart" method="get" style="position: relative;">

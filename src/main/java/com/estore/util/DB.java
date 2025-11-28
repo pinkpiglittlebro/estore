@@ -1,32 +1,21 @@
 package com.estore.util;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
 
 public class DB {
 
-	private static String URL;
+	private static final String URL = "jdbc:mysql://db:3306/estore?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+	private static final String USER = "root";
+	private static final String PASSWORD = "root";
 
-	static {
+	public static Connection getConnection() {
 		try {
-			Properties props = new Properties();
-			InputStream in = DB.class.getClassLoader().getResourceAsStream("database.properties");
-			props.load(in);
-
-			URL = props.getProperty("db.url");
-			System.out.println(">>> USING DB FILE: " + URL);
-
-			Class.forName("org.sqlite.JDBC");
-
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			return DriverManager.getConnection(URL, USER, PASSWORD);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-	}
-
-	public static Connection getConnection() throws SQLException {
-		return DriverManager.getConnection(URL);
 	}
 }
