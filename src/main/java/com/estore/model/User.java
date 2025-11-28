@@ -11,6 +11,8 @@ public class User {
 	private String province;
 	private String postal;
 
+	private String fullName;
+    private String creditCard;
 	// getters & setters
 	public int getId() {
 		return id;
