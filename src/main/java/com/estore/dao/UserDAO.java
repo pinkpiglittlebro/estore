@@ -4,6 +4,8 @@ import com.estore.model.User;
 import com.estore.util.DB;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 
@@ -42,6 +44,7 @@ public class UserDAO {
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
 				u.setEmail(rs.getString("email"));
+				u.setRole(rs.getString("role"));
 
 				//Load all profile fields
 				u.setFullName(rs.getString("full_name"));
@@ -86,6 +89,63 @@ public class UserDAO {
 		}
 	}
 
+	public List<User> getAllUsers() throws Exception {
+		String sql = "SELECT * FROM users ORDER BY id ASC";
+		List<User> list = new ArrayList<>();
+
+		try (Connection conn = DB.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql);
+			 ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				User u = new User();
+				u.setId(rs.getInt("id"));
+				u.setUsername(rs.getString("username"));
+				u.setEmail(rs.getString("email"));
+				u.setFullName(rs.getString("full_name"));
+				u.setAddress(rs.getString("address"));
+				u.setCity(rs.getString("city"));
+				u.setProvince(rs.getString("province"));
+				u.setPostal(rs.getString("postal"));
+				u.setPhone(rs.getString("phone"));
+				u.setCreditCard(rs.getString("credit_card"));
+				u.setRole(rs.getString("role"));
+
+				list.add(u);
+			}
+		}
+		return list;
+	}
+
+	public User getUserById(int id) throws Exception {
+		String sql = "SELECT * FROM users WHERE id = ?";
+
+		try (Connection conn = DB.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				User u = new User();
+				u.setId(rs.getInt("id"));
+				u.setUsername(rs.getString("username"));
+				u.setPassword(rs.getString("password"));
+				u.setEmail(rs.getString("email"));
+				u.setFullName(rs.getString("full_name"));
+				u.setAddress(rs.getString("address"));
+				u.setCity(rs.getString("city"));
+				u.setProvince(rs.getString("province"));
+				u.setPostal(rs.getString("postal"));
+				u.setPhone(rs.getString("phone"));
+				u.setCreditCard(rs.getString("credit_card"));
+				u.setRole(rs.getString("role"));
+				return u;
+			}
+		}
+
+		return null;
+	}
 
 
 

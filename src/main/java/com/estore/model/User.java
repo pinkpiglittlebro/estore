@@ -14,6 +14,10 @@ public class User {
 	private String phone;
 	private String fullName;
     private String creditCard;
+	private String role;
+
+
+
 	// getters & setters
 	public int getId() {
 		return id;
@@ -72,4 +76,8 @@ public class User {
 		return "**** **** **** " + creditCard.substring(creditCard.length() - 4);
 	}
 
+
+
+	public String getRole() { return role; }
+	public void setRole(String role) { this.role = role; }
 }
