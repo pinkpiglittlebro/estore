@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+    db:
+        image: mysql:8.0
+        container_name: estore-mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: estore
+        ports:
+            - "3306:3306"
+        volumes:
+            - db-data:/var/lib/mysql
+            - ./estore_mysql_full.sql:/docker-entrypoint-initdb.d/estore.sql
+
+    tomcat:
+        image: tomcat:9.0
+        container_name: estore-tomcat
+        depends_on:
+            - db
+        ports:
+            - "8081:8080"
+        volumes:
+            - ./target/estore.war:/usr/local/tomcat/webapps/estore.war
+        environment:
+            DB_HOST: db
+            DB_USER: root
+            DB_PASS: root
+            DB_NAME: estore
+
+volumes:
+    db-data:
