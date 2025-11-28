@@ -128,5 +128,22 @@ public class ProductDAO {
 		return -1;
 	}
 
+	public boolean updateInventory(int productId, int quantity) {
+		String sql = "UPDATE products SET inventory = ? WHERE id = ?";
+
+		try (Connection conn = DB.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setInt(1, quantity);
+			ps.setInt(2, productId);
+
+			return ps.executeUpdate() > 0;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 
 }

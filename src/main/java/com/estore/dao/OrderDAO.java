@@ -139,5 +139,72 @@ public class OrderDAO {
 		throw new Exception("Order not found");
 	}
 
+	public List<Order> searchOrders(String customer, String product,
+									String dateFrom, String dateTo) {
+
+		List<Order> list = new ArrayList<>();
+
+		String sql =
+			"SELECT o.id, o.user_id, o.full_name, o.total, o.created_at, " +
+				"       u.username, u.email " +
+				"FROM orders o " +
+				"LEFT JOIN users u ON o.user_id = u.id " +
+				"LEFT JOIN order_items oi ON oi.order_id = o.id " +
+				"LEFT JOIN products p ON oi.product_id = p.id " +
+				"WHERE 1=1 ";
+
+		List<Object> params = new ArrayList<>();
+
+		if (customer != null && !customer.trim().isEmpty()) {
+			sql += " AND (u.username LIKE ? OR u.email LIKE ? OR o.full_name LIKE ?) ";
+			params.add("%" + customer + "%");
+			params.add("%" + customer + "%");
+			params.add("%" + customer + "%");
+		}
+
+		if (product != null && !product.trim().isEmpty()) {
+			sql += " AND p.name LIKE ? ";
+			params.add("%" + product + "%");
+		}
+
+		if (dateFrom != null && !dateFrom.isEmpty()) {
+			sql += " AND o.created_at >= ? ";
+			params.add(dateFrom);
+		}
+
+		if (dateTo != null && !dateTo.isEmpty()) {
+			sql += " AND o.created_at <= ? ";
+			params.add(dateTo + " 23:59:59"); // include entire end date
+		}
+
+		sql += " GROUP BY o.id ORDER BY o.created_at DESC";
+
+		try (Connection conn = DB.getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			// Bind parameters
+			for (int i = 0; i < params.size(); i++) {
+				ps.setObject(i + 1, params.get(i));
+			}
+
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Order o = new Order();
+				o.setId(rs.getInt("id"));
+				o.setUserId(rs.getInt("user_id"));
+				o.setFullName(rs.getString("full_name"));
+				o.setTotal(rs.getDouble("total"));
+				o.setCreatedAt(rs.getString("created_at"));
+				list.add(o);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+
 
 }

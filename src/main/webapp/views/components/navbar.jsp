@@ -25,6 +25,12 @@
 		<!-- My Orders link -->
 		<a class="nav-btn" href="<%= ctx %>/orders">My Orders</a>
 
+		<!-- Admin -->
+		<% if (user != null && "ADMIN".equals(user.getRole())) { %>
+		<a class="nav-btn" href="<%= ctx %>/admin">Admin Panel</a>
+		<% } %>
+
+
 		<a class="nav-btn" href="<%= ctx %>/logout">Logout</a>
 		<% } %>
 
