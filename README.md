@@ -44,6 +44,17 @@ This project uses Docker Compose to run:
 
    > **Note:** Port 8081 is used because port 8080 was already in use on my machine during testing, so the container's Tomcat port (8080) is mapped to host port 8081.
 
+## Database Initialization Notice
+
+This project uses a MySQL container with an initialization SQL script.
+
+On first run, if catalog does not appear, please run in the project folder:
+
+```bash
+docker-compose down -v
+docker-compose up --build
+
+
 ## Stop Containers
 
 ```bash
