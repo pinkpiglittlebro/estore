@@ -53,7 +53,7 @@ On first run, if catalog does not appear, please run in the project folder:
 ```bash
 docker-compose down -v
 docker-compose up --build
-
+```
 
 ## Stop Containers
 
