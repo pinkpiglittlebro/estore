@@ -62,3 +62,88 @@ docker-compose down -v
 ```
 
 This removes containers and resets the MySQL volume.
+
+## Manual Deployment (Without Docker)
+
+### Requirements
+* Apache Tomcat 9 or higher
+* MySQL 8 or higher
+* JDK 8 or higher
+* Maven
+* Git
+
+### Setup Instructions
+
+#### 1. Clone the Project
+```bash
+git clone https://github.com/pinkpiglittlebro/estore
+cd estore
+```
+
+#### 2. Set Up MySQL Database
+
+1. **Install MySQL**
+
+2. **Start MySQL service and create database:**
+```bash
+   mysql -u root -p
+```
+   
+   Run these commands:
+```sql
+   CREATE DATABASE estore;
+   EXIT;
+```
+
+3. **Initialize database with sample data:**
+```bash
+   mysql -u root -p estore < estore_mysql_full.sql
+```
+   Enter your root password.
+
+#### 3. Configure Database Connection
+
+Update the database connection settings in `src/main/resources/database.properties`:
+```properties
+db.url=jdbc:mysql://localhost:3306/estore?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+db.user=root
+db.password=root
+```
+
+> **Note:** Change `db.password` to match your MySQL root password.
+
+#### 4. Build the Project
+```bash
+mvn clean package
+```
+
+The WAR file will be generated in `target/estore.war`
+
+#### 5. Deploy to Tomcat
+
+1. Copy the WAR file to Tomcat's webapps directory:
+```bash
+   cp target/estore.war <TOMCAT_HOME>/webapps/
+```
+
+2. Start Tomcat:
+   - Windows: `<TOMCAT_HOME>\bin\startup.bat`
+   - Mac/Linux: `<TOMCAT_HOME>/bin/startup.sh`
+
+#### 6. Access the Application
+
+Open your browser and navigate to:
+```
+http://localhost:8080/estore
+```
+
+> **Note:** If port 8080 is already in use on your machine, you'll need to change Tomcat's port in `<TOMCAT_HOME>/conf/server.xml`. Look for `<Connector port="8080"` and change it to `8081` or another available port, then access the application at `http://localhost:8081/estore`.
+
+### Troubleshooting
+
+- **Database connection failed:** Verify MySQL is running and credentials in `database.properties` are correct
+- **Port 8080 in use:** Change Tomcat's port in `<TOMCAT_HOME>/conf/server.xml`
+- **Catalog not appearing:** Verify SQL script executed successfully:
+```bash
+  mysql -u root -p estore -e "SHOW TABLES;"
+```
